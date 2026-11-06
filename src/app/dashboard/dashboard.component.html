@@ -1,0 +1,15 @@
+<div class="dashboard-grid">
+  @for (widget of state.widgets(); track widget.id) {
+    <div
+      class="widget-card"
+      [style.grid-row]="widget.position.row + 1 + '/' + (widget.position.row + widget.size.rows + 1)"
+      [style.grid-column]="widget.position.col + 1 + '/' + (widget.position.col + widget.size.cols + 1)"
+    >
+      <h3>{{ widget.title }}</h3>
+      <p>Тип: {{ widget.type }}</p>
+
+      <!-- Сюда позже вставим реальный виджет, пока заглушка -->
+      <app-notes-widget></app-notes-widget>
+    </div>
+  }
+</div>

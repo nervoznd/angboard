@@ -1,0 +1,12 @@
+<h3>Заметки</h3>
+<input
+  [(ngModel)]="newNote"
+  (keyup.enter)="addNote()"
+  placeholder="Новая заметка..."
+/>
+<button (click)="addNote()">Добавить</button>
+<ul>
+  @for (note of notes; track note) {
+    <li>{{ note }}</li>
+  }
+</ul>
