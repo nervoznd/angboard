@@ -1,13 +1,20 @@
-<div class="dashboard-grid">
+<div
+  class="dashboard-grid"
+  cdkDropList
+  cdkDropListOrientation="mixed"
+  (cdkDropListDropped)="onDrop($event)"
+>
   @for (widget of state.widgets(); track widget.id) {
     <div
       class="widget-card"
-      [style.grid-row]="widget.position.row + 1 + '/' + (widget.position.row + widget.size.rows + 1)"
-      [style.grid-column]="widget.position.col + 1 + '/' + (widget.position.col + widget.size.cols + 1)"
+      cdkDrag
+      [style.grid-column]="'span ' + widget.size.cols"
+      [style.grid-row]="'span ' + widget.size.rows"
     >
-      <h3>{{ widget.title }}</h3>
-      <p>Тип: {{ widget.type }}</p>
-
+      <div class="widget-header" cdkDragHandle>
+        <h3>{{ widget.title }}</h3>
+        <span class="drag-hint">⠿</span>
+      </div>
       <ng-container appWidgetHost [widget]="widget"></ng-container>
     </div>
   }
