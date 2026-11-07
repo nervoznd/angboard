@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { DashboardStateService } from '../core/services/dashboard-state.service';
-import { NotesWidgetComponent } from '../widgets/notes/notes.component';
-import { FormsModule } from '@angular/forms';
+import { WidgetHostDirective } from '../core/directives/widget-host.directive';
 
 @Component({
-  imports: [FormsModule, NotesWidgetComponent],
+  imports: [WidgetHostDirective],
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',

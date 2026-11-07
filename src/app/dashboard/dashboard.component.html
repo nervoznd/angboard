@@ -8,8 +8,7 @@
       <h3>{{ widget.title }}</h3>
       <p>Тип: {{ widget.type }}</p>
 
-      <!-- Сюда позже вставим реальный виджет, пока заглушка -->
-      <app-notes-widget></app-notes-widget>
+      <ng-container appWidgetHost [widget]="widget"></ng-container>
     </div>
   }
 </div>
