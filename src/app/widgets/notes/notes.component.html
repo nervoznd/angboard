@@ -1,12 +1,11 @@
-<h3>Заметки</h3>
-<input
-  [(ngModel)]="newNote"
-  (keyup.enter)="addNote()"
-  placeholder="Новая заметка..."
-/>
+<input [(ngModel)]="newNote" (keyup.enter)="addNote()" placeholder="Новая заметка..." />
 <button (click)="addNote()">Добавить</button>
 <ul>
-  @for (note of notes; track note) {
+  <!--
+    Plain strings may repeat, and duplicate keys are not allowed.
+    `$index` is a safe key for an append-only list like this one.
+  -->
+  @for (note of notes(); track $index) {
     <li>{{ note }}</li>
   }
 </ul>

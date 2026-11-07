@@ -1,3 +1,9 @@
 import { Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
-export const routes: Routes = [];
+/**
+ * Application routes.
+ *
+ * The dashboard is the only screen for now, so it is mapped to the root path.
+ */
+export const routes: Routes = [{ path: '', component: DashboardComponent }];

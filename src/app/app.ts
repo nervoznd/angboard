@@ -1,13 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
+/**
+ * Root component. It only provides the router outlet; the active screen is
+ * rendered by the matched route.
+ */
 @Component({
-  imports: [RouterOutlet, DashboardComponent],
+  imports: [RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
 })
-export class App {
-  protected readonly title = signal('angboard');
-}
+export class App {}

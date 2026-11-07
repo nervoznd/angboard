@@ -7,34 +7,21 @@
 }
 
 .widget-card {
-  background: #f5f5f7;
-  border-radius: 8px;
-  padding: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
+  padding: 12px;
+  background: #f5f5f7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
 .widget-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   cursor: grab;
 
   .drag-hint {
     color: #999;
   }
-}
-
-.cdk-drag-preview {
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-}
-
-.cdk-drag-placeholder {
-  opacity: 0.3;
-}
-
-.cdk-drag-animating {
-  transition: transform 200ms ease;
 }

@@ -13,7 +13,7 @@
     >
       <div class="widget-header" cdkDragHandle>
         <h3>{{ widget.title }}</h3>
-        <span class="drag-hint">⠿</span>
+        <span class="drag-hint" aria-hidden="true">⠿</span>
       </div>
       <ng-container appWidgetHost [widget]="widget"></ng-container>
     </div>

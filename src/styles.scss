@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global application styles. */
+
+/**
+ * CDK drag & drop styles live here, not in a component stylesheet.
+ *
+ * The drag preview is rendered in an overlay attached to <body>, outside the
+ * component's DOM. Component-scoped selectors such as `.cdk-drag-preview`
+ * would therefore never match it.
+ */
+.cdk-drag-preview {
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 25%);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+}
+
+.cdk-drag-animating {
+  transition: transform 200ms ease;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  background: #fafafa;
+  color: #1f1f1f;
+}
