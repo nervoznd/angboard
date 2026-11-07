@@ -31,4 +31,14 @@ export class DashboardStateService {
             current.map(w => (w.id === id ? { ...w, position } : w))
         );
     }
+
+    reorder(previousIndex: number, currentIndex: number) {
+        this.widgets.update(list => {
+            const copy = [...list];
+            const [moved] = copy.splice(previousIndex, 1);
+            copy.splice(currentIndex, 0, moved);
+            return copy;
+        });
+    }
+
 }
