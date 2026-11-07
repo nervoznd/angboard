@@ -11,6 +11,13 @@ export class DashboardStateService {
             position: { row: 0, col: 0},
             size: { rows: 3, cols: 4 },
         },
+        {
+            id: '2',
+            type: 'clock',
+            title: 'Часы',
+            position: { row: 0, col: 4 },
+            size: { rows: 3, cols: 3 },
+        },
     ]);
 
     widgetsList = computed(() => this.widgets());
