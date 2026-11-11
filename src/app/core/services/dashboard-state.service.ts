@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { WidgetConfig } from '../models/widget-config';
+import { getWidgetDefinition } from '../models/widget-catalog';
+import { WidgetConfig, WidgetType } from '../models/widget-config';
 
 /**
  * Single source of truth for the dashboard layout.
@@ -61,12 +62,45 @@ export class DashboardStateService {
     },
   ]);
 
+  /** Counter used only by the id fallback in `createWidgetId`. */
+  private fallbackId = 0;
+
   /** Read-only view of the widgets, safe to consume from templates. */
   readonly widgets = this._widgets.asReadonly();
 
   /** Appends a widget to the end of the dashboard (and therefore the grid). */
   addWidget(widget: WidgetConfig): void {
     this._widgets.update((current) => [...current, widget]);
+  }
+
+  /**
+   * Creates a widget from catalog defaults and appends it to the dashboard.
+   *
+   * The size object is copied so future edits to the created widget cannot
+   * mutate the shared catalog metadata.
+   */
+  addWidgetOfType(type: WidgetType): WidgetConfig {
+    const definition = getWidgetDefinition(type);
+    const widget: WidgetConfig = {
+      id: this.createWidgetId(),
+      type,
+      title: definition.title,
+      size: { ...definition.size },
+    };
+
+    this.addWidget(widget);
+    return widget;
+  }
+
+  /**
+   * Generates a unique id for a new widget.
+   *
+   * `crypto.randomUUID` is available in all supported browsers and in the test
+   * environment. The fallback keeps the method safe in older runtimes without
+   * sacrificing uniqueness within a single session.
+   */
+  private createWidgetId(): string {
+    return globalThis.crypto?.randomUUID?.() ?? `widget-${Date.now()}-${this.fallbackId++}`;
   }
 
   /**

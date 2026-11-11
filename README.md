@@ -59,6 +59,7 @@ src/app/
       widget-host.directive.ts  Creates the widget component dynamically
     models/
       widget-config.ts          Widget model and widget type union
+      widget-catalog.ts         Widget metadata used by the add-widget menu
       widget-registry.ts        Widget type -> component mapping
     services/
       dashboard-state.service.ts  Single source of truth for the layout
@@ -108,7 +109,8 @@ is a compile-time error.
 1. Add the new type to `WidgetType` in `core/models/widget-config.ts`.
 2. Create a standalone component under `src/app/widgets/<name>/`.
 3. Register it in `WIDGET_REGISTRY`.
-4. Add a `WidgetConfig` entry to the initial state (or via `addWidget`). The
+4. Describe its title, description and default size in `WIDGET_CATALOG`.
+5. Add a `WidgetConfig` entry to the initial state (or via `addWidget`). The
    entry is appended to the array, which places the widget at the end of the
    grid.
 
