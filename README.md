@@ -82,9 +82,13 @@ private readonly _widgets = signal<WidgetConfig[]>([]);
 readonly widgets = this._widgets.asReadonly();
 ```
 
-All mutations go through methods (`addWidget`, `updatePosition`, `reorder`) and
-produce new arrays/objects. Immutable updates matter because signals detect
-changes by reference.
+The layout is order-based: a widget's position on the grid is defined by its
+index in the `widgets` array. There are no stored coordinates, so the array is
+the single source of truth.
+
+All mutations go through methods (`addWidget`, `reorder`) and produce new
+arrays/objects. Immutable updates matter because signals detect changes by
+reference.
 
 ### Dynamic widgets
 
@@ -104,7 +108,9 @@ is a compile-time error.
 1. Add the new type to `WidgetType` in `core/models/widget-config.ts`.
 2. Create a standalone component under `src/app/widgets/<name>/`.
 3. Register it in `WIDGET_REGISTRY`.
-4. Add a `WidgetConfig` entry to the initial state (or via `addWidget`).
+4. Add a `WidgetConfig` entry to the initial state (or via `addWidget`). The
+   entry is appended to the array, which places the widget at the end of the
+   grid.
 
 ### Drag & drop
 

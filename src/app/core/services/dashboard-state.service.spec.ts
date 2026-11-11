@@ -7,7 +7,6 @@ function createWidget(overrides: Partial<WidgetConfig> = {}): WidgetConfig {
     id: 'test',
     type: 'notes',
     title: 'Test widget',
-    position: { row: 0, col: 0 },
     size: { rows: 1, cols: 1 },
     ...overrides,
   };

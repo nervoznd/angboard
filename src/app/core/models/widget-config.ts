@@ -13,23 +13,16 @@ export interface WidgetSize {
 }
 
 /**
- * Logical position of a widget on the grid.
+ * Description of a single dashboard widget.
  *
- * The current layout is order-based: CSS Grid auto-places the cards and
- * drag & drop reorders the underlying array. `position` is intentionally kept
- * as a foundation for a future free-form placement mode, but it is not read by
- * the current layout code.
+ * The layout is order-based: CSS Grid auto-places the cards in the same order
+ * as the `widgets` array, and drag & drop changes that order through
+ * `DashboardStateService.reorder`. There is intentionally no stored position,
+ * so the array remains the single source of truth.
  */
-export interface WidgetPosition {
-  row: number;
-  col: number;
-}
-
-/** Description of a single dashboard widget. */
 export interface WidgetConfig {
   id: string;
   type: WidgetType;
   title: string;
-  position: WidgetPosition;
   size: WidgetSize;
 }
