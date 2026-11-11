@@ -1,21 +1,138 @@
-<div
-  class="dashboard-grid"
-  cdkDropList
-  cdkDropListOrientation="mixed"
-  (cdkDropListDropped)="onDrop($event)"
->
-  @for (widget of state.widgets(); track widget.id) {
-    <div
-      class="widget-card"
-      cdkDrag
-      [style.grid-column]="'span ' + widget.size.cols"
-      [style.grid-row]="'span ' + widget.size.rows"
-    >
-      <div class="widget-header" cdkDragHandle>
-        <h3>{{ widget.title }}</h3>
-        <span class="drag-hint" aria-hidden="true">⠿</span>
-      </div>
-      <ng-container appWidgetHost [widget]="widget"></ng-container>
+<section class="dashboard">
+  <div class="dashboard-toolbar">
+    <div class="dashboard-toolbar__text">
+      <h2>Виджеты</h2>
+      <p>Добавляйте карточки и меняйте их порядок перетаскиванием.</p>
     </div>
+
+    <!--
+      CDK Menu handles the overlay, outside clicks, focus management and
+      keyboard navigation. The trigger only has to point at the menu template.
+    -->
+    <button type="button" class="add-widget-button" [cdkMenuTriggerFor]="widgetMenu">
+      <svg
+        class="add-widget-button__icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <span>Добавить виджет</span>
+      <svg
+        class="add-widget-button__chevron"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+  </div>
+
+  <ng-template #widgetMenu>
+    <div class="widget-menu" cdkMenu>
+      @for (definition of widgetCatalog; track definition.type) {
+        <button
+          type="button"
+          class="widget-menu__item"
+          cdkMenuItem
+          (cdkMenuItemTriggered)="addWidget(definition.type)"
+        >
+          <span class="widget-menu__icon" aria-hidden="true">
+            @switch (definition.type) {
+              @case ('notes') {
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"
+                  />
+                  <path d="M9 8h6M9 12h6M9 16h4" />
+                </svg>
+              }
+              @case ('clock') {
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="8" />
+                  <path d="M12 8v4l3 2" />
+                </svg>
+              }
+              @case ('weather') {
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="8" cy="8" r="3" />
+                  <path d="M8 2v1M2 8h1M3.8 3.8l.7.7M12.2 3.8l-.7.7" />
+                  <path d="M7 18h9a3 3 0 0 0 .4-5.97A5 5 0 0 0 7 14a3 3 0 0 0 0 6Z" />
+                </svg>
+              }
+            }
+          </span>
+
+          <span class="widget-menu__body">
+            <span class="widget-menu__title">{{ definition.title }}</span>
+            <span class="widget-menu__description">{{ definition.description }}</span>
+          </span>
+
+          <span class="widget-menu__size">
+            {{ definition.size.cols }}×{{ definition.size.rows }}
+          </span>
+        </button>
+      }
+    </div>
+  </ng-template>
+
+  @if (state.widgets().length > 0) {
+    <div
+      class="dashboard-grid"
+      cdkDropList
+      cdkDropListOrientation="mixed"
+      (cdkDropListDropped)="onDrop($event)"
+    >
+      @for (widget of state.widgets(); track widget.id) {
+        <div
+          class="widget-card"
+          cdkDrag
+          [style.grid-column]="'span ' + widget.size.cols"
+          [style.grid-row]="'span ' + widget.size.rows"
+        >
+          <div class="widget-header" cdkDragHandle>
+            <h3>{{ widget.title }}</h3>
+            <span class="drag-hint" aria-hidden="true">⠿</span>
+          </div>
+          <div class="widget-body">
+            <ng-container appWidgetHost [widget]="widget"></ng-container>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="dashboard-empty">
+      Пока нет виджетов. Добавьте первый с помощью кнопки «Добавить виджет».
+    </p>
   }
-</div>
+</section>

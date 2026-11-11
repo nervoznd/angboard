@@ -10,6 +10,7 @@ easy to find and study.
 
 - 12-column CSS Grid dashboard with widget cards of different sizes.
 - Drag & drop reordering powered by `@angular/cdk/drag-drop`.
+- "Add widget" menu for appending widgets with catalog-defined defaults.
 - Widgets are created dynamically from a registry, so new types can be added
   without touching the dashboard template.
 - Signal-based state management with immutable updates.
@@ -90,6 +91,13 @@ the single source of truth.
 All mutations go through methods (`addWidget`, `reorder`) and produce new
 arrays/objects. Immutable updates matter because signals detect changes by
 reference.
+
+### Add-widget menu
+
+The dashboard toolbar uses `@angular/cdk/menu`. Menu entries come from
+`WIDGET_CATALOG`, and selecting one calls `DashboardStateService.addWidgetOfType`.
+The service builds a `WidgetConfig` from the catalog defaults and appends it to
+the array, so the new card appears at the end of the grid.
 
 ### Dynamic widgets
 
