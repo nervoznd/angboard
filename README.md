@@ -14,6 +14,7 @@ easy to find and study.
 - Widgets are created dynamically from a registry, so new types can be added
   without touching the dashboard template.
 - Signal-based state management with immutable updates.
+- Theme-ready styling based on semantic CSS custom properties.
 - Zoneless change detection (the project does not depend on `zone.js`).
 - Strict TypeScript and strict Angular templates.
 - Unit tests with Vitest.
@@ -132,6 +133,17 @@ array order defines the visual order.
 CDK renders the drag preview in an overlay attached to `<body>`. For that
 reason, `.cdk-drag-preview`, `.cdk-drag-placeholder` and `.cdk-drag-animating`
 live in `src/styles.scss` (global styles), not in a component stylesheet.
+
+### Styling and themes
+
+Components use semantic CSS custom properties such as `--color-surface`,
+`--color-text` and `--color-primary` instead of hard-coded colours. The tokens
+are defined in `src/styles.scss`; a prepared `[data-theme='dark']` block already
+contains a dark palette. A future theme switcher only needs to set the
+`data-theme` attribute on the `<html>` element.
+
+The CDK menu panel is also styled globally because, like the drag preview, it is
+rendered in an overlay outside the component's DOM tree.
 
 ## License
 
